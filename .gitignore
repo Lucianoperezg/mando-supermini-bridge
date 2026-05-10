@@ -1,1 +1,4 @@
 .pio
+
+# Credenciales locales — nunca subir al repositorio
+include/secrets.h

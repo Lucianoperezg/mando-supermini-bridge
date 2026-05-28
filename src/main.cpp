@@ -75,14 +75,15 @@ static void stSave() {
  * @param cmd Nombre del comando (ej: "LIGHT_ON", "SPEED2_A")
  * @return true si transmisión exitosa, false si fallo
  */
-static bool rf(const char* cmd) { ─────────────────────────────────────────
 static bool rf(const char* cmd) {
     bool ok = fanSend(cmd);
     Serial.printf("[RF] %-18s %s\n", cmd, ok ? "OK" : "FAIL");
     return ok;
 }
 
-// ── Velocidad ────────────────────────────────────────────────// Array de comandos RF para velocidades 1-6static constexpr const char* SPEED_CMDS[] = {
+// ── Velocidad ────────────────────────────────────────────────
+// Array de comandos RF para velocidades 1-6
+static constexpr const char* SPEED_CMDS[] = {
     "", "SPEED1_A", "SPEED2_A", "SPEED3_A",
     "SPEED4_A", "SPEED5_A", "SPEED6_A"
 };
@@ -615,6 +616,7 @@ static void cliProcess(char* line) {
  * 4. HomeSpan: WiFi, accesorios (luz, ventilador, giro, apagar todo)
  *
  * Orden: Setup — orden idéntico a v5 que conecta correctamente
+ */
 // ============================================================
 void setup() {
     Serial.begin(115200);

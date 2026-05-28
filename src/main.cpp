@@ -635,8 +635,8 @@ void setup() {
         (unsigned long)fanGetAddr(), (unsigned long)fanTxParams().cellUs);
 
     // [B1] WiFi después del hardware — igual que v5
-    // Las credenciales WiFi se configuran en el primer arranque mediante
-    // el portal captivo de HomeSpan (no se hardcodean en el código).
+    // Las credenciales WiFi se cargan desde secrets.h (protegido con .gitignore)
+    homeSpan.setWifiCredentials(WIFI_SSID, WIFI_PASSWORD);
     homeSpan.setPairingCode(HOMEKIT_PAIRING_CODE);
     homeSpan.setHostNameSuffix("fanbridge");
     homeSpan.setSketchVersion("7.0.0");

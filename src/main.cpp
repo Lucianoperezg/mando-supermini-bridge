@@ -8,6 +8,8 @@
 //   [3] Ventilador      — on/off + velocidad 1-6
 //   [4] Giro            — switch ON=Verano / OFF=Invierno
 //   [5] Apagar Todo     — switch momentáneo
+//   [6] Temporizador 2H — switch momentáneo (RF: 0x4F checksum 0x06)
+//   [7] Temporizador 4H — switch momentáneo (RF: 0xC8 checksum 0x09)
 //
 // Bugs corregidos respecto a v5/v6:
 //   [B1] Orden WiFi idéntico a v5 que conecta — sin tocar stack antes de HomeSpan
@@ -506,6 +508,49 @@ struct SvcAllOff : Service::Switch {
 };
 
 // ============================================================
+// Accesorios 6 y 7 — Temporizadores de hardware (momentáneos)
+// ============================================================
+struct SvcTimer : Service::Switch {
+    SpanCharacteristic* cOn;
+    unsigned long triggeredAt = 0;
+    uint8_t cmd8;
+    uint8_t chk4;
+
+    /**
+     * Constructor que recibe el comando y el checksum exacto
+     * @param cmd Comando RF (0x4F para 2H, 0xC8 para 4H)
+     * @param chk Checksum (0x06 para 2H, 0x09 para 4H)
+     */
+    SvcTimer(uint8_t cmd, uint8_t chk) : cmd8(cmd), chk4(chk) { 
+        cOn = new Characteristic::On(0); 
+    }
+
+    /**
+     * Callback HomeKit: envía ráfaga RF del temporizador
+     */
+    boolean update() override {
+        if (cOn->getNewVal<bool>()) {
+            // Envía la ráfaga RF directamente a la placa del ventilador
+            fanSendManual(fanGetAddr(), cmd8, chk4, 6);
+            triggeredAt = millis();
+            Serial.printf("[HK][TIMER] Enviado CMD: 0x%02X CHK: 0x%02X\n", cmd8, chk4);
+        }
+        return true;
+    }
+
+    /**
+     * Loop HomeSpan: resetea el switch en la app Casa tras 400ms
+     */
+    void loop() override {
+        // Resetea el interruptor en la app Casa tras 400ms
+        if (cOn->getVal<bool>() && triggeredAt > 0 && millis() - triggeredAt > 400) {
+            cOn->setVal(false);
+            triggeredAt = 0;
+        }
+    }
+};
+
+// ============================================================
 // Consola RF (CLI) — Comandos para debugging y configuración
 // ============================================================
 
@@ -680,6 +725,20 @@ void setup() {
             new Characteristic::Identify();
             new Characteristic::Name("Apagar Todo");
         new SvcAllOff();
+
+    // [6] Temporizador 2H
+    new SpanAccessory();
+        new Service::AccessoryInformation();
+            new Characteristic::Identify();
+            new Characteristic::Name("Temporizador 2H");
+        new SvcTimer(0x4F, 0x06);
+
+    // [7] Temporizador 4H
+    new SpanAccessory();
+        new Service::AccessoryInformation();
+            new Characteristic::Identify();
+            new Characteristic::Name("Temporizador 4H");
+        new SvcTimer(0xC8, 0x09);
 }
 
 // ============================================================

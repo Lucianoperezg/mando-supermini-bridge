@@ -24,6 +24,7 @@
 #include <Preferences.h>
 #include "HomeSpan.h"
 #include "fan_protocol.h"
+#include "secrets.h"
 
 // ── Estado persistente ───────────────────────────────────────
 static Preferences gSt;
@@ -634,8 +635,9 @@ void setup() {
         (unsigned long)fanGetAddr(), (unsigned long)fanTxParams().cellUs);
 
     // [B1] WiFi después del hardware — igual que v5
-    homeSpan.setWifiCredentials("[WIFI_SSID_REMOVED]", "[WIFI_PASS_REMOVED]");
-    homeSpan.setPairingCode("[PAIRING_CODE_REMOVED]");
+    // Las credenciales WiFi se configuran en el primer arranque mediante
+    // el portal captivo de HomeSpan (no se hardcodean en el código).
+    homeSpan.setPairingCode(HOMEKIT_PAIRING_CODE);
     homeSpan.setHostNameSuffix("fanbridge");
     homeSpan.setSketchVersion("7.0.0");
     homeSpan.setLogLevel(1);

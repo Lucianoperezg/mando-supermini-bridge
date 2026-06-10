@@ -8,10 +8,10 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "C:/Users/lucky/Desktop/ESP/mando-supermini-bridge/include",
-                "C:/Users/lucky/Desktop/ESP/mando-supermini-bridge/src",
+                "C:/Users/lucky/Desarrollo/PROJECTS/ESP/mando-supermini-bridge/include",
+                "C:/Users/lucky/Desarrollo/PROJECTS/ESP/mando-supermini-bridge/src",
                 "C:/Users/lucky/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src",
-                "C:/Users/lucky/Desktop/ESP/mando-supermini-bridge/.pio/libdeps/esp32s3-bridge/HomeSpan/src",
+                "C:/Users/lucky/Desarrollo/PROJECTS/ESP/mando-supermini-bridge/.pio/libdeps/esp32s3-bridge/HomeSpan/src",
                 "C:/Users/lucky/.platformio/packages/framework-arduinoespressif32/libraries/DNSServer/src",
                 "C:/Users/lucky/.platformio/packages/framework-arduinoespressif32/libraries/AsyncUDP/src",
                 "C:/Users/lucky/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
@@ -398,10 +398,10 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "C:/Users/lucky/Desktop/ESP/mando-supermini-bridge/include",
-                    "C:/Users/lucky/Desktop/ESP/mando-supermini-bridge/src",
+                    "C:/Users/lucky/Desarrollo/PROJECTS/ESP/mando-supermini-bridge/include",
+                    "C:/Users/lucky/Desarrollo/PROJECTS/ESP/mando-supermini-bridge/src",
                     "C:/Users/lucky/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src",
-                    "C:/Users/lucky/Desktop/ESP/mando-supermini-bridge/.pio/libdeps/esp32s3-bridge/HomeSpan/src",
+                    "C:/Users/lucky/Desarrollo/PROJECTS/ESP/mando-supermini-bridge/.pio/libdeps/esp32s3-bridge/HomeSpan/src",
                     "C:/Users/lucky/.platformio/packages/framework-arduinoespressif32/libraries/DNSServer/src",
                     "C:/Users/lucky/.platformio/packages/framework-arduinoespressif32/libraries/AsyncUDP/src",
                     "C:/Users/lucky/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
